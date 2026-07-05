@@ -51,7 +51,7 @@ export default function ProductGrid({
         <div className="flex justify-center mt-10">
           <button
             type="button"
-            onClick={onViewAll}
+            onClick={() => window.open('/products', '_blank')}
             className="px-8 py-2 border-2 border-[#C87137] text-[#C87137] font-medium rounded-lg hover:bg-[#F9F5F0] transition-colors"
           >
             View all

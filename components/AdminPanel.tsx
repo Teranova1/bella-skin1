@@ -180,7 +180,7 @@ export default function AdminPanel({ products, onAddProduct, onToggleStock, onDe
 
   if (!authenticated) {
     return (
-      <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(200,113,55,0.14),_transparent_32%),linear-gradient(180deg,#111827_0%,#1f2937_100%)] text-white">
+      <main className="min-h-screen bg-[linear-gradient(135deg,_#1F1F1F_0%,#2A2A2A_50%,#1F1F1F_100%)] text-white">
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
           <div className="flex items-center justify-between mb-10">
             <div>
@@ -386,22 +386,22 @@ export default function AdminPanel({ products, onAddProduct, onToggleStock, onDe
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
         <div className="flex items-center justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-[#7A6B5D] font-semibold">Admin Dashboard</p>
-            <h1 className="text-4xl font-bold text-[#3D3D3D] mt-2">Manage catalog and stock</h1>
-            <p className="text-[#7A6B5D] mt-2">Signed in as {sessionUser?.name}</p>
+            <p className="text-xs uppercase tracking-[0.35em] text-[#C87137] font-semibold">Admin Dashboard</p>
+            <h1 className="text-4xl font-bold text-[#3D3D3D] mt-2">Manage Products & Catalog</h1>
+            <p className="text-[#A0826D] mt-2 font-medium">Welcome back, {sessionUser?.name}</p>
           </div>
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onExit}
-              className="px-4 py-3 rounded-xl border border-[#E8D4C4] bg-white text-[#3D3D3D] hover:bg-[#F9F5F0] transition-colors"
+              className="px-6 py-3 rounded-xl border border-[#C87137] bg-white text-[#C87137] hover:bg-[#FFF5F0] transition-colors font-semibold"
             >
               Back to Store
             </button>
             <button
               type="button"
               onClick={handleLogout}
-              className="px-4 py-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-colors inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-xl bg-[#3D3D3D] text-white hover:bg-slate-800 transition-colors inline-flex items-center gap-2 font-semibold"
             >
               <LogOut className="w-4 h-4" />
               Logout
