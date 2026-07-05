@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import PromoCarousel from '@/components/PromoCarousel';
-import ProductGrid from '@/components/ProductGrid';
+import ProductCarousel from '@/components/ProductCarousel';
 import ProductDetails from '@/components/ProductDetails';
 import Checkout from '@/components/Checkout';
 import OrderSuccess from '@/components/OrderSuccess';
@@ -157,13 +157,10 @@ export default function Home() {
           <>
             <PromoCarousel />
             <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8" id="featured-section">
-              <ProductGrid
+              <ProductCarousel
                 products={products}
-                selectedCategory={selectedCategory}
                 onViewProduct={handleViewProduct}
                 onAddToCart={handleAddToCart}
-                onViewAll={handleViewAll}
-                showAllProducts={showAllProducts}
               />
             </div>
           </>

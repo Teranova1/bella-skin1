@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { Product } from '@/lib/types';
 import ProductCard from './ProductCard';
 
@@ -18,6 +19,8 @@ export default function ProductGrid({
   onViewAll,
   showAllProducts = false,
 }: ProductGridProps) {
+  const router = useRouter();
+  
   const filteredProducts =
     selectedCategory === 'All'
       ? products
@@ -51,7 +54,7 @@ export default function ProductGrid({
         <div className="flex justify-center mt-10">
           <button
             type="button"
-            onClick={onViewAll}
+            onClick={() => router.push('/products')}
             className="px-8 py-2 border-2 border-[#C87137] text-[#C87137] font-medium rounded-lg hover:bg-[#F9F5F0] transition-colors"
           >
             View all
