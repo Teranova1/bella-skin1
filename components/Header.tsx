@@ -30,14 +30,6 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
                   height={220}
                   className="block h-36 w-36 object-contain transition-transform group-hover:scale-105"
                 />
-                <span className="hidden sm:block leading-tight whitespace-nowrap">
-                  <span className="block text-sm font-semibold tracking-[0.35em] text-[#3D3D3D] uppercase">
-                    Bella
-                  </span>
-                  <span className="block text-xs font-medium tracking-[0.3em] text-[#A0826D] uppercase">
-                    Skincare
-                  </span>
-                </span>
               </Link>
             </div>
 
