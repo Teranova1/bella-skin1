@@ -21,11 +21,11 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
           {/* Logo */}
           <Link href="/" aria-label="Bella Skincare home" className="flex items-center flex-shrink-0">
             <img
-              src="/bella-logo.png"
+              src="/logo.png"
               alt="Bella Skincare"
-              width={80}
+              width={200}
               height={80}
-              className="h-16 w-auto object-contain hover:opacity-80 transition-opacity"
+              className="h-20 w-auto object-contain hover:opacity-80 transition-opacity"
             />
           </Link>
 
