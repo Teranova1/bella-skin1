@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/bella-logo.png"
+                src="/logo.png"
                 alt="Bella Skincare"
                 width={60}
                 height={60}

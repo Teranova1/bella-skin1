@@ -24,7 +24,7 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
             <div className="flex-shrink-0">
               <Link href="/" aria-label="Bella Skincare home" className="flex items-center gap-4 group">
                 <img
-                  src="/bella-logo.png"
+                  src="/logo.png"
                   alt="Bella Skincare"
                   width={220}
                   height={220}
