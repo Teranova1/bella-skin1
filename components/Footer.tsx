@@ -11,11 +11,11 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/logo.png"
+                src="/bella-logo.png"
                 alt="Bella Skincare"
-                width={60}
-                height={60}
-                className="h-16 w-16 object-contain"
+                width={50}
+                height={50}
+                className="h-12 w-auto object-contain"
               />
               <div>
                 <h3 className="text-xl font-bold text-[#C87137]">Bella</h3>
