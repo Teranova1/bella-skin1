@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react';
 import { Product } from '@/lib/types';
 import Image from 'next/image';
@@ -12,6 +13,7 @@ interface ProductCarouselProps {
 }
 
 export default function ProductCarousel({ products, onViewProduct, onAddToCart }: ProductCarouselProps) {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(5);
 
@@ -145,7 +147,7 @@ export default function ProductCarousel({ products, onViewProduct, onAddToCart }
       <div className="flex justify-center mt-10">
         <button
           type="button"
-          onClick={() => window.open('/products', '_blank')}
+          onClick={() => router.push('/products')}
           className="px-8 py-2 border-2 border-[#C87137] text-[#C87137] font-medium rounded-lg hover:bg-[#F9F5F0] transition-colors"
         >
           View all
