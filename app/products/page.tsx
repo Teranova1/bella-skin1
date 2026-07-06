@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { defaultProducts, loadProducts } from '@/lib/catalog';
 import { Product } from '@/lib/types';
-import { ChevronDown, Grid3x3, List } from 'lucide-react';
+import { ChevronDown, Grid3x3, List, SlidersHorizontal } from 'lucide-react';
 
 type ViewMode = 'grid' | 'list';
 
@@ -16,6 +16,7 @@ export default function ProductsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(defaultProducts);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [sortBy, setSortBy] = useState('date-new');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   
   // Filters
   const [priceRange, setPriceRange] = useState({ min: 0, max: 13950 });
@@ -81,12 +82,23 @@ export default function ProductsPage() {
         <Header onAdminClick={() => {}} onCartClick={() => {}} cartCount={0} />
         <Navigation />
 
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
-          <h1 className="text-3xl font-bold text-[#3D3D3D] mb-8">All Products</h1>
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#3D3D3D] mb-4 md:mb-8">All Products</h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+          {/* Mobile Filter Toggle */}
+          <button
+            type="button"
+            onClick={() => setShowMobileFilters((prev) => !prev)}
+            className="lg:hidden flex items-center gap-2 mb-4 px-4 py-2.5 bg-white border border-[#E8D4C4] rounded-lg text-sm font-semibold text-[#3D3D3D]"
+            aria-expanded={showMobileFilters}
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
+          </button>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-8">
             {/* Sidebar Filters */}
-            <aside className="bg-white rounded-2xl p-6 h-fit sticky top-24 border border-[#E8D4C4]">
+            <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block bg-white rounded-2xl p-6 h-fit lg:sticky lg:top-24 border border-[#E8D4C4]`}>
               <h2 className="text-lg font-bold text-[#3D3D3D] mb-6">Filter:</h2>
 
               {/* Availability */}
@@ -161,8 +173,8 @@ export default function ProductsPage() {
             {/* Main Content */}
             <div>
               {/* Top Controls */}
-              <div className="flex items-center justify-between mb-6 pb-6 border-b border-[#E8D4C4]">
-                <div className="flex gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-6 border-b border-[#E8D4C4]">
+                <div className="flex gap-2 order-1">
                   <button
                     onClick={() => setViewMode('grid')}
                     className={`p-2 rounded-lg transition-colors ${
@@ -187,7 +199,7 @@ export default function ProductsPage() {
                   </button>
                 </div>
 
-                <div className="relative">
+                <div className="relative order-3 sm:order-2">
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
@@ -200,7 +212,7 @@ export default function ProductsPage() {
                   <ChevronDown className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#A0826D]" />
                 </div>
 
-                <p className="text-sm text-[#7A6B5D]">{filteredProducts.length} products</p>
+                <p className="text-sm text-[#7A6B5D] order-2 sm:order-3">{filteredProducts.length} products</p>
               </div>
 
               {/* Products Grid/List */}

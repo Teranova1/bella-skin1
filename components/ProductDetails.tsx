@@ -14,17 +14,17 @@ export default function ProductDetails({ product, onBuyNow, onAddToCart, onBack 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
         <button
           onClick={onBack}
-          className="text-[#7A6B5D] hover:text-[#3D3D3D] mb-8 font-medium"
+          className="text-[#7A6B5D] hover:text-[#3D3D3D] mb-6 md:mb-8 font-medium"
         >
           ← Back to Products
         </button>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-12">
           {/* Image Section */}
-          <div className="flex items-center justify-center bg-white rounded-2xl p-8">
+          <div className="flex items-center justify-center bg-white rounded-2xl p-4 md:p-8">
             <div className="relative w-full aspect-square">
               <Image
                 src={product.image}
@@ -41,7 +41,7 @@ export default function ProductDetails({ product, onBuyNow, onAddToCart, onBack 
               <p className="text-sm text-[#C87137] font-semibold uppercase tracking-widest mb-2">
                 {product.category}
               </p>
-              <h1 className="text-4xl font-bold text-[#3D3D3D] mb-4">{product.name}</h1>
+              <h1 className="text-2xl md:text-4xl font-bold text-[#3D3D3D] mb-4">{product.name}</h1>
               <div className="flex items-center gap-2 mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -55,7 +55,7 @@ export default function ProductDetails({ product, onBuyNow, onAddToCart, onBack 
                 {product.description}
               </p>
               <div className="flex items-center gap-3 mb-4">
-                <p className="text-5xl font-bold text-[#3D3D3D]">${product.price}</p>
+                <p className="text-3xl md:text-5xl font-bold text-[#3D3D3D]">${product.price}</p>
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest ${
                     isOutOfStock ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'

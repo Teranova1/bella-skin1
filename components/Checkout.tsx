@@ -87,19 +87,19 @@ export default function Checkout({ product, cartItems = [], onSuccess, onBack }:
 
   return (
     <div className="min-h-screen bg-[#F9F5F0]">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
         <button
           onClick={onBack}
-          className="text-[#7A6B5D] hover:text-[#3D3D3D] mb-8 font-medium"
+          className="text-[#7A6B5D] hover:text-[#3D3D3D] mb-6 md:mb-8 font-medium"
         >
           ← Back
         </button>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid lg:grid-cols-3 gap-6 md:gap-12">
           {/* Order Summary */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#E8D4C4]">
-              <h2 className="text-2xl font-bold text-[#3D3D3D] mb-8">Checkout</h2>
+            <div className="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-[#E8D4C4]">
+              <h2 className="text-2xl font-bold text-[#3D3D3D] mb-6 md:mb-8">Checkout</h2>
 
               {/* Order Details */}
               <div className="mb-8 pb-8 border-b border-[#E8D4C4]">
@@ -278,7 +278,7 @@ export default function Checkout({ product, cartItems = [], onSuccess, onBack }:
 
           {/* Order Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#E8D4C4] sticky top-24">
+            <div className="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-[#E8D4C4] lg:sticky lg:top-24">
               <h3 className="text-lg font-bold text-[#3D3D3D] mb-6">Order Details</h3>
               <div className="space-y-4">
                 <div className="flex justify-between text-[#7A6B5D]">

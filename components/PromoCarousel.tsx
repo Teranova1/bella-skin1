@@ -87,8 +87,8 @@ export default function PromoCarousel() {
   };
 
   return (
-    <div className="w-full bg-[#F9F5F0] py-6">
-      <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-96 overflow-hidden rounded-xl">
+    <div className="w-full bg-[#F9F5F0] py-4 md:py-6">
+      <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-56 sm:h-72 md:h-96 overflow-hidden rounded-xl">
         {/* Slides */}
         <div className="relative w-full h-full">
           {promoSlides.map((slide, index) => (
@@ -109,15 +109,15 @@ export default function PromoCarousel() {
               <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
               {/* Content */}
-              <div className="absolute inset-0 flex items-center justify-start px-12">
+              <div className="absolute inset-0 flex items-center justify-start px-6 sm:px-8 md:px-12">
                 <div className="max-w-xl">
-                  <h2 className="text-5xl md:text-6xl font-bold text-[#C87137] mb-2">
+                  <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-[#C87137] mb-1 md:mb-2">
                     {slide.title}
                   </h2>
-                  <p className="text-3xl md:text-4xl font-bold text-[#3D3D3D] mb-6">
+                  <p className="text-lg sm:text-2xl md:text-4xl font-bold text-[#3D3D3D] mb-3 md:mb-6">
                     {slide.subtitle}
                   </p>
-                  <div className="bg-[#C87137] text-white px-6 py-3 rounded-full inline-block font-semibold">
+                  <div className="bg-[#C87137] text-white px-4 py-2 md:px-6 md:py-3 rounded-full inline-block font-semibold text-sm md:text-base">
                     {slide.cta}
                   </div>
                 </div>
@@ -129,18 +129,18 @@ export default function PromoCarousel() {
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-3 rounded-full transition-all"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 md:p-3 rounded-full transition-all"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 text-[#3D3D3D]" />
+          <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-[#3D3D3D]" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-3 rounded-full transition-all"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 md:p-3 rounded-full transition-all"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 text-[#3D3D3D]" />
+          <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-[#3D3D3D]" />
         </button>
 
         {/* Navigation Dots */}
