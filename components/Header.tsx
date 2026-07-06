@@ -16,8 +16,8 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-4">
-        <div className="flex items-center justify-between gap-6">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4">
+        <div className="flex items-center justify-between gap-3 md:gap-6">
           {/* Logo */}
           <Link href="/" aria-label="Bella Skincare home" className="flex items-center flex-shrink-0">
             <img
@@ -25,7 +25,7 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
               alt="Bella Skincare"
               width={200}
               height={80}
-              className="h-20 w-auto object-contain hover:opacity-80 transition-opacity"
+              className="h-12 sm:h-16 md:h-20 w-auto object-contain hover:opacity-80 transition-opacity"
             />
           </Link>
 
@@ -46,7 +46,7 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
           </div>
 
           {/* Right Section - Cart & Admin */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             {/* Cart */}
             <button
               onClick={onCartClick}
@@ -67,6 +67,22 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
               className="px-4 py-2 text-xs font-semibold text-white bg-[#C87137] hover:bg-[#B85F2F] rounded-lg transition-colors"
             >
               Admin
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Search Bar */}
+        <div className="mt-3 md:hidden">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search products..."
+              className="flex-1 min-w-0 px-4 py-2.5 border border-[#D9C7B8] rounded-lg bg-[#F9F5F0] focus:outline-none focus:ring-2 focus:ring-[#C87137] text-sm"
+            />
+            <button className="px-4 py-2.5 bg-[#C87137] text-white font-semibold rounded-lg hover:bg-[#B85F2F] transition-colors text-sm flex-shrink-0">
+              Search
             </button>
           </div>
         </div>

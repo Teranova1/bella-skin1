@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 
 interface NavItem {
   name: string;
@@ -41,7 +41,9 @@ const navItems: NavItem[] = [
 
 export default function Navigation() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const handleMouseEnter = (name: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -54,10 +56,32 @@ export default function Navigation() {
     }, 100);
   };
 
+  const toggleExpanded = (name: string) => {
+    setExpandedItem((current) => (current === name ? null : name));
+  };
+
   return (
     <nav className="w-full bg-white border-b border-[#E8D4C4]">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex items-center gap-8">
+        {/* Mobile toggle */}
+        <div className="flex items-center justify-between py-3 lg:hidden">
+          <span className="text-sm font-semibold uppercase tracking-widest text-[#3D3D3D]">
+            Categories
+          </span>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            className="inline-flex items-center gap-2 rounded-lg border border-[#E8D4C4] px-3 py-2 text-sm font-medium text-[#3D3D3D] hover:text-[#C87137] transition-colors"
+            aria-expanded={mobileOpen}
+            aria-label="Toggle categories menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            Menu
+          </button>
+        </div>
+
+        {/* Desktop navigation */}
+        <div className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => (
             <div
               key={item.name}
@@ -91,6 +115,53 @@ export default function Navigation() {
             </div>
           ))}
         </div>
+
+        {/* Mobile navigation (accordion) */}
+        {mobileOpen && (
+          <div className="lg:hidden pb-4 flex flex-col divide-y divide-[#E8D4C4] border-t border-[#E8D4C4]">
+            {navItems.map((item) => (
+              <div key={item.name}>
+                {item.subcategories ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(item.name)}
+                      className="w-full flex items-center justify-between py-3 text-[#3D3D3D] hover:text-[#C87137] font-medium text-sm transition-colors"
+                      aria-expanded={expandedItem === item.name}
+                    >
+                      {item.name}
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform ${
+                          expandedItem === item.name ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    {expandedItem === item.name && (
+                      <div className="flex flex-col pb-2">
+                        {item.subcategories.map((sub) => (
+                          <a
+                            key={sub}
+                            href="#"
+                            className="block py-2 pl-4 text-sm text-[#7A6B5D] hover:text-[#C87137] transition-colors"
+                          >
+                            {sub}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <a
+                    href="#"
+                    className="block py-3 text-[#3D3D3D] hover:text-[#C87137] font-medium text-sm transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
