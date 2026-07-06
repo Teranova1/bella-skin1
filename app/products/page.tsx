@@ -82,7 +82,7 @@ export default function ProductsPage() {
         <Navigation />
 
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
-          <h1 className="text-3xl font-bold text-[#3D3D3D] mb-8">All Products</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#3D3D3D] mb-6 md:mb-8">All Products</h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
             {/* Sidebar Filters */}
@@ -161,7 +161,7 @@ export default function ProductsPage() {
             {/* Main Content */}
             <div>
               {/* Top Controls */}
-              <div className="flex items-center justify-between mb-6 pb-6 border-b border-[#E8D4C4]">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-6 border-b border-[#E8D4C4]">
                 <div className="flex gap-2">
                   <button
                     onClick={() => setViewMode('grid')}

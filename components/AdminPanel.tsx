@@ -182,14 +182,14 @@ export default function AdminPanel({ products, onAddProduct, onToggleStock, onDe
     return (
       <main className="min-h-screen bg-[linear-gradient(135deg,_#1F1F1F_0%,#2A2A2A_50%,#1F1F1F_100%)] text-white">
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
             <div>
               <p className="text-xs uppercase tracking-[0.35em] text-[#E7C1A7]">Bella Admin</p>
-              <h1 className="text-4xl md:text-5xl font-bold mt-2">Login or sign up to manage products</h1>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mt-2">Login or sign up to manage products</h1>
             </div>
             <button
               onClick={onExit}
-              className="px-4 py-2 rounded-lg border border-white/20 text-white/80 hover:bg-white/10 transition-colors"
+              className="self-start px-4 py-2 rounded-lg border border-white/20 text-white/80 hover:bg-white/10 transition-colors flex-shrink-0"
             >
               Exit Store
             </button>
@@ -384,24 +384,24 @@ export default function AdminPanel({ products, onAddProduct, onToggleStock, onDe
   return (
     <main className="min-h-screen bg-[#F9F5F0]">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
-        <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-[#C87137] font-semibold">Admin Dashboard</p>
-            <h1 className="text-4xl font-bold text-[#3D3D3D] mt-2">Manage Products & Catalog</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D3D3D] mt-2">Manage Products & Catalog</h1>
             <p className="text-[#A0826D] mt-2 font-medium">Welcome back, {sessionUser?.name}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={onExit}
-              className="px-6 py-3 rounded-xl border border-[#C87137] bg-white text-[#C87137] hover:bg-[#FFF5F0] transition-colors font-semibold"
+              className="flex-1 md:flex-none px-6 py-3 rounded-xl border border-[#C87137] bg-white text-[#C87137] hover:bg-[#FFF5F0] transition-colors font-semibold"
             >
               Back to Store
             </button>
             <button
               type="button"
               onClick={handleLogout}
-              className="px-6 py-3 rounded-xl bg-[#3D3D3D] text-white hover:bg-slate-800 transition-colors inline-flex items-center gap-2 font-semibold"
+              className="flex-1 md:flex-none justify-center px-6 py-3 rounded-xl bg-[#3D3D3D] text-white hover:bg-slate-800 transition-colors inline-flex items-center gap-2 font-semibold"
             >
               <LogOut className="w-4 h-4" />
               Logout

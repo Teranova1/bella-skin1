@@ -50,8 +50,8 @@ export default function ProductCarousel({ products, onViewProduct, onAddToCart }
 
   return (
     <section>
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold text-[#3D3D3D]">Featured Products</h2>
+      <div className="flex items-center justify-between mb-6 md:mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#3D3D3D]">Featured Products</h2>
         
         {/* Navigation Buttons */}
         <div className="flex items-center gap-3">
