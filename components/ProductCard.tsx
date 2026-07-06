@@ -28,7 +28,7 @@ export default function ProductCard({ product, onView, onAddToCart }: ProductCar
       aria-label={`View details for ${product.name}`}
     >
       {/* Product Image */}
-      <div className="relative flex-shrink-0 bg-[#F9F5F0] overflow-hidden p-6 min-h-64">
+      <div className="relative flex-shrink-0 bg-[#F9F5F0] overflow-hidden p-4 sm:p-6 min-h-44 sm:min-h-64">
         <div className="h-full flex items-center justify-center">
           <Image
             src={product.image}
@@ -48,8 +48,8 @@ export default function ProductCard({ product, onView, onAddToCart }: ProductCar
       </div>
 
       {/* Product Details */}
-      <div className="p-5 flex flex-col flex-grow">
-        <p className="text-xs text-[#C87137] font-semibold uppercase tracking-widest mb-2">
+      <div className="p-3 sm:p-5 flex flex-col flex-grow">
+        <p className="text-[11px] sm:text-xs text-[#C87137] font-semibold uppercase tracking-widest mb-1.5 sm:mb-2">
           {product.category}
         </p>
         <h3 className="text-sm font-semibold text-[#3D3D3D] mb-1 line-clamp-3">
@@ -57,14 +57,14 @@ export default function ProductCard({ product, onView, onAddToCart }: ProductCar
         </h3>
         
         <div className="mt-auto">
-          <p className="text-lg font-bold text-[#A0826D] mb-5">
+          <p className="text-base sm:text-lg font-bold text-[#A0826D] mb-3 sm:mb-5">
             Rs {product.price.toLocaleString()}
           </p>
 
           <button
             type="button"
             disabled={isOutOfStock}
-            className="w-full py-3 bg-[#C87137] text-white font-semibold rounded-md hover:bg-[#B85F2F] transition-all disabled:cursor-not-allowed disabled:opacity-50 text-sm"
+            className="w-full py-2.5 sm:py-3 bg-[#C87137] text-white font-semibold rounded-md hover:bg-[#B85F2F] transition-all disabled:cursor-not-allowed disabled:opacity-50 text-xs sm:text-sm"
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart(product);
