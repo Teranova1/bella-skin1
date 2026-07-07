@@ -75,7 +75,7 @@ export default function ProductsPage() {
   }, [mobileFiltersOpen]);
 
   const handleViewProduct = (product: Product) => {
-    window.location.href = `/`;
+    window.location.href = `/?product=${product.id}`;
   };
 
   const handleAddToCart = (product: Product) => {

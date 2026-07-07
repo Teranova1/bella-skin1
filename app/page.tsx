@@ -30,8 +30,21 @@ export default function Home() {
   const [catalogReady, setCatalogReady] = useState(false);
 
   useEffect(() => {
-    setProducts(loadProducts());
+    const loaded = loadProducts();
+    setProducts(loaded);
     setCatalogReady(true);
+
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('product');
+      if (productId) {
+        const found = loaded.find((p) => p.id === productId);
+        if (found) {
+          setSelectedProduct(found);
+          setView('productDetails');
+        }
+      }
+    }
   }, []);
 
   useEffect(() => {
