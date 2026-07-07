@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { Eye, EyeOff, Loader2, Sparkles, Lock, Mail, User, CheckCircle2, AlertCircle } from 'lucide-react';
 import { loadAdminUsers, loadAdminSession, saveAdminSession } from '@/lib/admin-storage';
 import { AdminUser } from '@/lib/types';
-import Header from '@/components/Header';
-import Navigation from '@/components/Navigation';
 
 type Tab = 'login' | 'signup';
 
@@ -152,9 +150,26 @@ export default function LoginPage() {
         ))}
       </div>
 
-      {/* ── Standard full-sized site header ── */}
-      <Header onAdminClick={() => {}} onCartClick={() => router.push('/')} cartCount={0} />
-      <Navigation />
+      {/* ── Dedicated clean header ── */}
+      <header className="bg-white shadow-sm border-b border-[#E8D4C4] sticky top-0 z-50">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
+          <Link href="/" aria-label="Bella Skincare home" className="flex items-center flex-shrink-0">
+            <img
+              src="/logo.png"
+              alt="Bella Skincare"
+              width={200}
+              height={80}
+              className="h-12 sm:h-16 md:h-20 w-auto object-contain hover:opacity-80 transition-opacity"
+            />
+          </Link>
+          <Link
+            href="/"
+            className="text-sm font-semibold text-[#7A6B5D] hover:text-[#C87137] transition-colors px-4 py-2 rounded-lg hover:bg-[#F9F5F0]"
+          >
+            ← Back to Store
+          </Link>
+        </div>
+      </header>
 
       {/* ── Main layout ── */}
       <main className="flex-1 flex items-center justify-center px-4 py-10 sm:py-16">
