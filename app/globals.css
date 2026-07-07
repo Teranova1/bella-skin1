@@ -160,6 +160,18 @@
   body {
     @apply bg-white text-slate-900;
   }
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* Hide scrollbar for horizontally scrollable elements */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 

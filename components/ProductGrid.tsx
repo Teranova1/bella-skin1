@@ -33,7 +33,7 @@ export default function ProductGrid({
     <section>
       <h2 className="text-2xl font-bold text-[#3D3D3D] mb-6">Featured Products</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
         {displayedProducts.map((product) => (
           <ProductCard
             key={product.id}
@@ -51,11 +51,11 @@ export default function ProductGrid({
       )}
 
       {hasMoreProducts && (
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-8 sm:mt-10">
           <button
             type="button"
             onClick={() => router.push('/products')}
-            className="px-8 py-2 border-2 border-[#C87137] text-[#C87137] font-medium rounded-lg hover:bg-[#F9F5F0] transition-colors"
+            className="px-8 py-3 sm:py-2 border-2 border-[#C87137] text-[#C87137] font-medium rounded-lg hover:bg-[#F9F5F0] transition-colors min-h-[48px] sm:min-h-0 text-sm sm:text-base active:scale-[0.97]"
           >
             View all
           </button>

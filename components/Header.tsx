@@ -2,7 +2,8 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Search, ShoppingCart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ShoppingCart } from 'lucide-react';
 
 interface HeaderProps {
   onAdminClick: () => void;
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: HeaderProps) {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const isMountedRef = useRef(true);
 
@@ -29,7 +31,7 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
             />
           </Link>
 
-          {/* Search Bar */}
+          {/* Search Bar — desktop */}
           <div className="flex-1 max-w-xl hidden md:block">
             <div className="flex gap-2">
               <input
@@ -45,29 +47,56 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
             </div>
           </div>
 
-          {/* Right Section - Cart & Admin */}
-          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+          {/* Right Section */}
+          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+
+            {/* My Account */}
+            <button
+              onClick={() => router.push('/login')}
+              className="flex items-center gap-2 px-2 sm:px-3 py-2 text-[#3D3D3D] hover:text-[#C87137] transition-colors rounded-lg hover:bg-[#F9F5F0] group"
+              aria-label="My Account"
+            >
+              {/* Outline user icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-7 h-7 flex-shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                />
+              </svg>
+              <div className="hidden sm:flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold text-[#3D3D3D] group-hover:text-[#C87137] transition-colors">My Account</span>
+                <span className="text-[11px] text-[#7A6B5D] group-hover:text-[#C87137] transition-colors">Log In</span>
+              </div>
+            </button>
+
+            {/* Divider */}
+            <div className="hidden sm:block h-8 w-px bg-[#E8D4C4]" />
+
             {/* Cart */}
             <button
               onClick={onCartClick}
-              className="flex items-center gap-2 px-3 py-2 text-[#3D3D3D] hover:text-[#C87137] transition-colors rounded-lg hover:bg-[#F9F5F0]"
+              className="flex items-center gap-2 px-2 sm:px-3 py-2 text-[#3D3D3D] hover:text-[#C87137] transition-colors rounded-lg hover:bg-[#F9F5F0] group"
               aria-label={`Shopping cart with ${cartCount} items`}
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="w-7 h-7 flex-shrink-0" strokeWidth={1.5} />
+              <span className="hidden sm:block text-sm font-medium text-[#3D3D3D] group-hover:text-[#C87137] transition-colors whitespace-nowrap">
+                Cart ({cartCount})
+              </span>
+              {/* Mobile: show badge only when items exist */}
               {cartCount > 0 && (
-                <span className="text-xs font-bold bg-[#C87137] text-white rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="sm:hidden text-xs font-bold bg-[#C87137] text-white rounded-full h-5 w-5 flex items-center justify-center -ml-1">
                   {cartCount}
                 </span>
               )}
             </button>
 
-            {/* Admin Button */}
-            <button
-              onClick={onAdminClick}
-              className="px-4 py-2 text-xs font-semibold text-white bg-[#C87137] hover:bg-[#B85F2F] rounded-lg transition-colors"
-            >
-              Admin
-            </button>
           </div>
         </div>
 
