@@ -1,14 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
+import CartDrawer from '@/components/CartDrawer';
 import { defaultProducts, loadProducts } from '@/lib/catalog';
-import { Product } from '@/lib/types';
-import { ChevronDown, Grid3x3, List, SlidersHorizontal, X } from 'lucide-react';
+import { addToCartStorage, loadCart, saveCart } from '@/lib/cart-storage';
+import { CartItem, Product } from '@/lib/types';
+import { CheckCircle2, ChevronDown, Grid3x3, List, SlidersHorizontal, X } from 'lucide-react';
 
 type ViewMode = 'grid' | 'list';
 
@@ -20,6 +22,11 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState('date-new');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  // Cart state
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [addedToast, setAddedToast] = useState<string | null>(null);
+
   // Filters
   const [priceRange, setPriceRange] = useState({ min: 0, max: 13950 });
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -30,6 +37,8 @@ export default function ProductsPage() {
 
   useEffect(() => {
     setProducts(loadProducts());
+    // Rehydrate cart from localStorage so badge + drawer stay correct
+    setCartItems(loadCart());
   }, []);
 
   useEffect(() => {
@@ -78,8 +87,32 @@ export default function ProductsPage() {
     window.location.href = `/?product=${product.id}`;
   };
 
-  const handleAddToCart = (product: Product) => {
-    // This will be handled by parent component
+  const handleAddToCart = useCallback((product: Product) => {
+    if (!product.inStock) return;
+    const updated = addToCartStorage(product, 1);
+    setCartItems(updated);
+    setIsCartOpen(true);
+    // Show a brief toast
+    setAddedToast(product.name);
+    setTimeout(() => setAddedToast(null), 2500);
+  }, []);
+
+  const handleUpdateQuantity = (productId: string, delta: number) => {
+    setCartItems(prev => {
+      const updated = prev
+        .map(i => i.product.id === productId ? { ...i, quantity: i.quantity + delta } : i)
+        .filter(i => i.quantity > 0);
+      saveCart(updated);
+      return updated;
+    });
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    setCartItems(prev => {
+      const updated = prev.filter(i => i.product.id !== productId);
+      saveCart(updated);
+      return updated;
+    });
   };
 
   const toggleBrand = (brand: string) => {
@@ -177,7 +210,11 @@ export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-[#F9F5F0] flex flex-col overflow-x-hidden">
       <div className="flex-grow">
-        <Header onAdminClick={() => router.push('/admin')} onCartClick={() => {}} cartCount={0} />
+        <Header
+          onAdminClick={() => router.push('/admin')}
+          onCartClick={() => setIsCartOpen(true)}
+          cartCount={cartItems.reduce((s, i) => s + i.quantity, 0)}
+        />
         <Navigation />
 
         <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8">
@@ -410,6 +447,34 @@ export default function ProductsPage() {
         </div>
       </div>
       <Footer />
+
+      {/* ── Cart Drawer ── */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        items={cartItems}
+        subtotal={cartItems.reduce((s, i) => s + i.product.price * i.quantity, 0)}
+        onClose={() => setIsCartOpen(false)}
+        onIncrement={(id) => handleUpdateQuantity(id, 1)}
+        onDecrement={(id) => handleUpdateQuantity(id, -1)}
+        onRemove={handleRemoveFromCart}
+        onCheckout={() => { setIsCartOpen(false); router.push('/'); }}
+      />
+
+      {/* ── Add-to-cart toast ── */}
+      {addedToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] flex items-center gap-3 bg-[#3D3D3D] text-white px-5 py-3.5 rounded-2xl shadow-2xl animate-slideUp text-sm font-medium max-w-[90vw]">
+          <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+          <span className="line-clamp-1"><span className="font-semibold">{addedToast}</span> added to cart!</span>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateX(-50%) translateY(1rem); }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .animate-slideUp { animation: slideUp 0.25s ease-out forwards; }
+      `}</style>
     </main>
   );
 }

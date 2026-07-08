@@ -13,6 +13,7 @@ import CartDrawer from '@/components/CartDrawer';
 import Footer from '@/components/Footer';
 
 import { defaultProducts, loadProducts, saveProducts } from '@/lib/catalog';
+import { loadCart, saveCart, CART_EVENT } from '@/lib/cart-storage';
 import { CartItem, Product } from '@/lib/types';
 
 type PageView = 'home' | 'productDetails' | 'checkout' | 'orderSuccess';
@@ -34,6 +35,9 @@ export default function Home() {
     setProducts(loaded);
     setCatalogReady(true);
 
+    // Rehydrate cart from localStorage (populated by /products page)
+    setCartItems(loadCart());
+
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const productId = params.get('product');
@@ -46,6 +50,11 @@ export default function Home() {
       }
     }
   }, []);
+
+  // Persist cart to localStorage and fire sync event on every change
+  useEffect(() => {
+    saveCart(cartItems);
+  }, [cartItems]);
 
   useEffect(() => {
     if (catalogReady) {

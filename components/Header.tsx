@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
+import { CART_EVENT, getCartCount } from '@/lib/cart-storage';
 
 interface HeaderProps {
   onAdminClick: () => void;
@@ -15,6 +16,22 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const isMountedRef = useRef(true);
+  // Self-managed badge — reads from localStorage, reacts to custom event
+  const [localCartCount, setLocalCartCount] = useState(0);
+
+  useEffect(() => {
+    const sync = () => setLocalCartCount(getCartCount());
+    sync(); // initialise
+    window.addEventListener(CART_EVENT, sync);
+    window.addEventListener('storage', sync); // cross-tab
+    return () => {
+      window.removeEventListener(CART_EVENT, sync);
+      window.removeEventListener('storage', sync);
+    };
+  }, []);
+
+  // Prefer the locally-tracked localStorage count; fall back to prop for SSR
+  const displayCount = localCartCount > 0 ? localCartCount : cartCount;
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -82,19 +99,21 @@ export default function Header({ onAdminClick, onCartClick, cartCount = 0 }: Hea
             {/* Cart */}
             <button
               onClick={onCartClick}
-              className="flex items-center gap-2 px-2 sm:px-3 py-2 text-[#3D3D3D] hover:text-[#C87137] transition-colors rounded-lg hover:bg-[#F9F5F0] group"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              className="relative flex items-center gap-2 px-2 sm:px-3 py-2 text-[#3D3D3D] hover:text-[#C87137] transition-colors rounded-lg hover:bg-[#F9F5F0] group"
+              aria-label={`Shopping cart with ${displayCount} items`}
             >
-              <ShoppingCart className="w-7 h-7 flex-shrink-0" strokeWidth={1.5} />
-              <span className="hidden sm:block text-sm font-medium text-[#3D3D3D] group-hover:text-[#C87137] transition-colors whitespace-nowrap">
-                Cart ({cartCount})
+              <span className="relative">
+                <ShoppingCart className="w-7 h-7 flex-shrink-0" strokeWidth={1.5} />
+                {/* Badge – visible on all breakpoints */}
+                {displayCount > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px] font-bold bg-[#C87137] text-white rounded-full flex items-center justify-center leading-none animate-bounce-once">
+                    {displayCount > 99 ? '99+' : displayCount}
+                  </span>
+                )}
               </span>
-              {/* Mobile: show badge only when items exist */}
-              {cartCount > 0 && (
-                <span className="sm:hidden text-xs font-bold bg-[#C87137] text-white rounded-full h-5 w-5 flex items-center justify-center -ml-1">
-                  {cartCount}
-                </span>
-              )}
+              <span className="hidden sm:block text-sm font-medium text-[#3D3D3D] group-hover:text-[#C87137] transition-colors whitespace-nowrap">
+                Cart ({displayCount})
+              </span>
             </button>
 
           </div>
