@@ -89,10 +89,10 @@ export default function PromoCarousel() {
   return (
     <div className="w-full bg-[#F9F5F0] py-4 md:py-6">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
-        {/* Aspect-ratio container — 12:5 matches the banner image proportions */}
+        {/* Aspect-ratio container — 5:2 matches standard widescreen banner dimensions */}
         <div
           className="relative w-full overflow-hidden rounded-xl"
-          style={{ aspectRatio: '12 / 5' }}
+          style={{ aspectRatio: '5 / 2' }}
         >
           {/* Slides */}
           {promoSlides.map((slide, index) => (
@@ -105,7 +105,7 @@ export default function PromoCarousel() {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-fill"
+                className="w-full h-full object-cover"
               />
             </div>
           ))}
