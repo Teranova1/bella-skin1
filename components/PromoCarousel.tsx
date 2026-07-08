@@ -14,24 +14,24 @@ interface PromoSlide {
 const promoSlides: PromoSlide[] = [
   {
     id: '1',
-    title: 'SPECIAL DISCOUNT',
-    subtitle: 'UP TO 50% OFF',
-    image: 'https://images.unsplash.com/photo-1631730486073-b7635bd45e5f?w=1200&h=500&fit=crop',
-    cta: 'Valid Until 31st July',
-  },
-  {
-    id: '2',
-    title: 'SUMMER COLLECTION',
-    subtitle: 'NEW ARRIVALS',
-    image: 'https://images.unsplash.com/photo-1599599810694-b3ae3ac7b0f4?w=1200&h=500&fit=crop',
+    title: 'Discover Radiance',
+    subtitle: 'Curated Essentials',
+    image: '/slide1.png',
     cta: 'Shop Now',
   },
   {
+    id: '2',
+    title: 'Ultimate Hydration',
+    subtitle: 'Meets Pure Formula',
+    image: '/slide2.png',
+    cta: 'Explore Ingredients',
+  },
+  {
     id: '3',
-    title: 'EXCLUSIVE OFFER',
-    subtitle: 'GET BEAUTY BUNDLE',
-    image: 'https://images.unsplash.com/photo-1610601916025-404dbb551ce7?w=1200&h=500&fit=crop',
-    cta: 'Limited Time Only',
+    title: 'Serum Collection',
+    subtitle: 'Natural Botanicals',
+    image: '/slide3.png',
+    cta: 'Shop Serums',
   },
 ];
 
@@ -88,40 +88,21 @@ export default function PromoCarousel() {
 
   return (
     <div className="w-full bg-[#F9F5F0] py-4 md:py-6">
-      <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-56 sm:h-72 md:h-96 overflow-hidden rounded-xl">
+      <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-xl">
         {/* Slides */}
         <div className="relative w-full h-full">
           {promoSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-500 ${
+              className={`absolute inset-0 transition-opacity duration-700 ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              {/* Background Image */}
               <img
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover"
               />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
-
-              {/* Content */}
-              <div className="absolute inset-0 flex items-center justify-start px-6 sm:px-10 md:px-12">
-                <div className="max-w-xs sm:max-w-md md:max-w-xl">
-                  <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-[#C87137] mb-1 md:mb-2">
-                    {slide.title}
-                  </h2>
-                  <p className="text-lg sm:text-2xl md:text-4xl font-bold text-[#3D3D3D] mb-3 md:mb-6">
-                    {slide.subtitle}
-                  </p>
-                  <div className="bg-[#C87137] text-white px-4 py-2 md:px-6 md:py-3 rounded-full inline-block font-semibold text-sm md:text-base">
-                    {slide.cta}
-                  </div>
-                </div>
-              </div>
             </div>
           ))}
         </div>
